@@ -1,2 +1,7 @@
-# app_programming
-Develop app for github
+# 앱 프로그래밍
+
+앱 아이디어 구상
+
+- 뉴스 앱
+
+- 참고 앱
