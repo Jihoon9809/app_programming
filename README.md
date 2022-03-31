@@ -19,7 +19,7 @@
    + for me 페이지를 통하여 설정한 지역에 관련된 뉴스기사 안내
    + headline 페이지를 통하여 전국 뉴스기사 안내
    + favorite 페이지를 구현하여 자신의 관심 기사 등록
-   + 
+   + 사이트 맵 수정
 ---------------------------------------------------------------------   
 - 참고 앱
 https://play.google.com/store/search?q=%EB%89%B4%EC%8A%A4&c=apps
@@ -34,3 +34,7 @@ https://play.google.com/store/search?q=%EB%89%B4%EC%8A%A4&c=apps
 ![사이트맵](https://user-images.githubusercontent.com/95200335/158802708-db8acb67-81b5-40c9-a883-cfd8e08deb6b.png)
 
 -프로젝트 구현 간 지속적인 수정 
+
+----------------------------------------------------------------------
+[0331] 화면 UI 구상.
+https://www.figma.com/file/qWamL64glecTqhwNVMML14/news-app-design?node-id=0%3A1
