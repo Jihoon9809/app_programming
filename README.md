@@ -37,4 +37,5 @@ https://play.google.com/store/search?q=%EB%89%B4%EC%8A%A4&c=apps
 
 ----------------------------------------------------------------------
 [0331] 화면 UI 구상.
+
 https://www.figma.com/file/qWamL64glecTqhwNVMML14/news-app-design?node-id=0%3A1
