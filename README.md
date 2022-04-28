@@ -49,6 +49,7 @@ https://newsapi.org/s/south-korea-news-api
 [0427] 현재 날씨 정보
 https://openweathermap.org/
 위의 사이트의 api를 통해 메인 화면의 날싸 위젯을 구성한다.
-ttps://pub.dev/packages/geolocator/example
-날씨 정보를 알려주기 위해 현위치를 알아야 하므로  geolocator을 활용한다.
 
+ttps://pub.dev/packages/geolocator/example
+-날씨 정보를 알려주기 위해 현위치를 알아야 하므로  geolocator을 활용한다.
+-readme를 통해 api사용법을 숙지한다.
