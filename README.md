@@ -56,3 +56,14 @@ https://pub.dev/packages/geolocator/example
 
 https://pub.dev/packages/http/install
 -날씨 api를 사용하기 위해 http사용
+
+//진행상황//
+openweathermap api를 활용하여 플러터의 콘솔에 출력을 하였다.
+https://user-images.githubusercontent.com/95200335/165798940-16643d49-73e7-44be-8d16-1f835edad515.png
+
+이후 어플의 화면에 지역이름 및 온도를 출력하는 중 오류가 발생하였다.
+
+//차후 진행계획//
+-  오류 수정을 하여 앱 화면에 지역이름 및 온도를 출력한 후 날씨관련 아이콘을 배치한다.
+- 초기의 목적에 맞게 위젯의 사이즈를 조절하여 배치한다.
+- 뉴스 api를 받아와 화면에 출력하는 단계를 진행한다.
