@@ -59,7 +59,7 @@ https://pub.dev/packages/http/install
 
 //진행상황//
 openweathermap api를 활용하여 플러터의 콘솔에 출력을 하였다.
-https://user-images.githubusercontent.com/95200335/165798940-16643d49-73e7-44be-8d16-1f835edad515.png
+![날씨 json 파일 불러오기](https://user-images.githubusercontent.com/95200335/165798940-16643d49-73e7-44be-8d16-1f835edad515.png)
 
 이후 어플의 화면에 지역이름 및 온도를 출력하는 중 오류가 발생하였다.
 
