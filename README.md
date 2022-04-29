@@ -63,12 +63,11 @@ openweathermap api를 활용하여 플러터의 콘솔에 출력을 하였다.
 
 ![날씨 출력 오류](https://user-images.githubusercontent.com/95200335/165800029-f0a807a0-a9d1-40a2-af9d-f2692147550a.png)
 
-// 오류수정//
 
-![d](https://user-images.githubusercontent.com/95200335/165881911-ea8587a0-3a77-4273-8a35-8a821d327718.PNG)
 이후 어플의 화면에 지역이름 및 온도를 출력하는 중 오류가 발생하였다.
 
 //차후 진행계획//
 -  오류 수정을 하여 앱 화면에 지역이름 및 온도를 출력한 후 날씨관련 아이콘을 배치한다.
 - 초기의 목적에 맞게 위젯의 사이즈를 조절하여 배치한다.
 - 뉴스 api를 받아와 화면에 출력하는 단계를 진행한다.
+![dd](https://user-images.githubusercontent.com/95200335/165882316-3ed0dc8b-4db7-4fab-a057-81927a17ff5a.png)
