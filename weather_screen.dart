@@ -10,15 +10,16 @@ class WeatherScreen extends StatefulWidget{
 
 class _WeatherScreenState extends State<WeatherScreen>{
 
-  late String cityName;
-  late double temp;
+  String? cityName;
+  int? temp2;
   @override
   void initState(){
     super.initState();
-    print(widget.parseWeatherData);
+    updateData(widget.parseWeatherData); //state class의 속성 widget 사용 모든데이터에 접근 가능
   }
   void updateData(dynamic weatherData){
-         temp = weatherData['main']['temp'];
+         double temp = weatherData['main']['temp'];
+         temp2 = temp.round(); //반올림 하기 위해
          cityName = weatherData['name'];
   }
   Widget build(BuildContext context){
@@ -37,7 +38,7 @@ class _WeatherScreenState extends State<WeatherScreen>{
               SizedBox(
                 height: 20.0,
               ),
-              Text('$temp',
+              Text('$temp2',
               style: TextStyle(
                 fontSize: 30.0
               ),)
