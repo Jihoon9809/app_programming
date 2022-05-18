@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news/screens/loding.dart';
+import 'package:news/screens/news_app.dart';
 
 
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Loading(),
+      home: NewsApp(),
     );
   }
 }
