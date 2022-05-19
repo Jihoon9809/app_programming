@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'detail.dart';
+
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
 
@@ -17,6 +19,8 @@ class _HomeState extends State<Home> {
     );
     final Leading_button = IconButton( onPressed: () {print("검색버튼");},icon: Icon(Icons.search), color: Colors.grey,);
 
+    final Info_button = IconButton(onPressed: (){print("문의사항 이동");}, icon: Icon(Icons.info),color: Colors.grey,);
+
     final current_location = Text(
       "현재 주소 \n 기온",
       style: TextStyle( // 위도 및 경로를 활용하여 현위치 이름으로 변경.
@@ -29,7 +33,10 @@ class _HomeState extends State<Home> {
     Widget _bodyWidget() {
       return ListView.separated(itemBuilder: (BuildContext _context, int
       index) {
-        return Container(
+        return GestureDetector(
+          onTap: (){
+            Navigator.push(context,MaterialPageRoute(builder: (context) => Detailview()),);
+          },
           child: Column(
             children: [
               Image.asset("assets/images/ara-${index + 1}.jpg",
@@ -62,8 +69,7 @@ class _HomeState extends State<Home> {
           title: home_logo,
           centerTitle: true,
           leading: Leading_button,
-          actions: <Widget>[ IconButton(onPressed: (){print("문의사항 이동");}, icon: Icon(Icons.info),color: Colors.grey,),
-            IconButton(onPressed: (){print("세팅 이동");}, icon: Icon(Icons.settings),color: Colors.grey,),
+          actions: <Widget>[ Info_button,
       ],
     ),body
     :
