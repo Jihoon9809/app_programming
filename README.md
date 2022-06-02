@@ -82,3 +82,8 @@ https://www.youtube.com/watch?v=f1VfEEmMRgw
 https://www.youtube.com/watch?v=aaGcER1uUoE
 
 https://www.youtube.com/watch?v=7n2QprcdHMA
+
+//////// ListView.Separated ////////////
+
+https://api.flutter.dev/flutter/widgets/ListView-class.html
+
