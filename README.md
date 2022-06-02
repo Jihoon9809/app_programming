@@ -79,4 +79,6 @@ openweathermap api를 활용하여 플러터의 콘솔에 출력을 하였다.
 
 https://www.youtube.com/watch?v=f1VfEEmMRgw
 
+https://www.youtube.com/watch?v=aaGcER1uUoE
+
 https://www.youtube.com/watch?v=7n2QprcdHMA
