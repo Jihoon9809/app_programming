@@ -73,3 +73,7 @@ openweathermap api를 활용하여 플러터의 콘솔에 출력을 하였다.
 //오류 수정완료//
 
 ![dd](https://user-images.githubusercontent.com/95200335/165882316-3ed0dc8b-4db7-4fab-a057-81927a17ff5a.png)
+
+
+++++ 참고 +++++
+https://www.youtube.com/watch?v=f1VfEEmMRgw
