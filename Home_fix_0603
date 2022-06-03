@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:untitled3/datas/news.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -8,6 +12,25 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List<ArticleModel>? articles = new List<ArticleModel>.empty(growable: true);
+  bool _loading = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getNews();
+  }
+
+  getNews() async{
+    News newsClass = News();
+    await newsClass.getNews();
+    articles = newsClass.news;
+    setState(() {
+      _loading= false;
+    });
+
+  }
   @override
   Widget build(BuildContext context) {
     final home_logo = Text( //어플 로고이미지로 변경
@@ -45,7 +68,7 @@ class _HomeState extends State<Home> {
       ),
       body: Container(
           child : ListView.separated(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(15),
             itemCount: entries.length,
             itemBuilder: (BuildContext context, int index) {
               return Container(
@@ -58,12 +81,13 @@ class _HomeState extends State<Home> {
                     Container(
                       height: 180,
                       width: 400,
-                      color: Colors.blue,
+                      child: Image.asset('assets/first.jpg', fit: BoxFit.fill,),
                     ),
                     Container(
-                      height: 100,
+                      height: 60,
                       width: 400,
                       color: Colors.red,
+                      child: articles!.length == 0 ? Text('연결 x'):Text(articles![index].title),
                     )
                   ],
                 )
@@ -75,4 +99,34 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+/*  Future<void> getNews() async{
+    String url = "https://newsapi.org/v2/top-headlines?country=kr&apiKey=31199b72f238424ba57c46e7aae0a696";
+
+    var response = await http.get(Uri.parse(url));
+
+    var jsonData = jsonDecode(response.body);
+
+    print(jsonData.toString());
+     if(jsonData['status'] == "ok"){
+      jsonData["articles"].forEach((element){
+
+        if(element["urlToImage"] != null && element['description'] != null){
+
+          ArticleModel articleModel = ArticleModel(
+            author: element['author'],
+            title: element['title'],
+            description: element['description'],
+            url: element['url'],
+            urlTolmage: element['urlTolmage'],
+            publishedAt: element['publishedAt'],
+            content: element['content'],
+          );
+        }
+
+      });
+    }
+
+  }*/
 }
+
+
