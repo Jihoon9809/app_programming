@@ -44,7 +44,7 @@ https://www.figma.com/file/qWamL64glecTqhwNVMML14/news-app-design?node-id=0%3A1
 [0426] news api 
 https://newsapi.org/s/south-korea-news-api
 위의 경로에 위치하는 api를 사용할 계획
-
+https://newsapi.org/sources
 ---------------------------------------------------------------------
 [0427] 현재 날씨 정보
 https://openweathermap.org/
