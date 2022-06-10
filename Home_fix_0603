@@ -2,10 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 import 'datas/news.dart';
 
 const apikey = '576d46ee1760bd0dbff8bdb769d6e2dc';
 const city = 'Busan';
+//const url = "http://naver.com";
+
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
 
@@ -107,26 +110,42 @@ class _HomeState extends State<Home> {
           itemCount: articles!.length,
           itemBuilder: (BuildContext context, int index) {
             return Container(
-                height: 300,
+                height: 450,
                 color: Colors.white,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Container(
-                      height: 180,
-                      width: 400,
-                      child: articles!.length == 0 ? Text('연결 x') : Image
-                          .network(
-                          "${articles![index].urlToImage}", fit: BoxFit.fill),
+                    GestureDetector(
+                      onTap: (){
+                        launch("${articles![index].url}");
+                      },
+                      child:
+                      Container(
+                        height: 200,
+                        width: 600,
+                        child: articles!.length == 0 ? Text('연결 x') : Image
+                            .network(
+                            "${articles![index].urlToImage}", fit: BoxFit.fill),
+                      ),
                     ),
+                    GestureDetector(
+                      onTap: (){
+                        launch("${articles![index].url}");
+                      },
+                      child:
                     Container(
-                      height: 60,
-                      width: 400,
-                      color: Colors.white,
-                      child: articles!.length == 0 ? Text('연결 x') : Text(
-                          "${articles![index].title}",
-                          style: TextStyle(fontSize: 16)),
-                    )
+                      child: Column(
+                        children: [
+                          articles!.length == 0 ? Text('연결 x') : Text(
+                              "${articles![index].title} \n",
+                              style: TextStyle(fontSize: 18
+                                  ,fontWeight: FontWeight.bold)),
+                          articles!.length == 0 ? Text('연결 x') : Text(
+                              "${articles![index].description}",
+                              style: TextStyle(fontSize: 14)),
+                        ],
+                      ),
+                    ),)
                   ],
                 )
               //
