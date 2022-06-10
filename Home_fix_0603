@@ -1,14 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
-import '../data/network.dart';
-import 'Weather.dart';
-import 'news.dart';
+import 'datas/news.dart';
 
 const apikey = '576d46ee1760bd0dbff8bdb769d6e2dc';
-
+const city = 'Busan';
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
 
@@ -19,13 +16,25 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<ArticleModel>? articles = new List<ArticleModel>.empty(growable: true);
+  double? temp;
 
+  Future getWeather() async {
+    String url = "https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apikey}";
+    var response = await http.get(Uri.parse(url));
+    dynamic jsonData = jsonDecode(response.body);
+    setState(() {
+      temp = jsonData['main']['temp'];
+
+    });
+    //print(jsonData.toString());
+  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getNews();
+    //getWeather();
   }
 
   getNews() async{
@@ -33,81 +42,100 @@ class _HomeState extends State<Home> {
     await newsClass.getNews();
     articles = newsClass.news;
     setState(() {
-
     });
   }
 
   @override
   Widget build(BuildContext context) {
-      final home_logo = Text( //어플 로고이미지로 변경
-        "News",
-        style: TextStyle(
-            color: Colors.black),
-      );
-      final Leading_button = IconButton(onPressed: () {
-        print("검색버튼");
-      }, icon: Icon(Icons.search), color: Colors.grey,);
+    final home_logo = Text( //어플 로고이미지로 변경
+      "News",
+      style: TextStyle(
+          color: Colors.black),
+    );
+    final Leading_button = IconButton(onPressed: () {
+      getWeather();
+    }, icon: Icon(Icons.search), color: Colors.grey,);
 
-      final Info_button = IconButton(onPressed: () {
-        print("문의사항 이동");
-      }, icon: Icon(Icons.info), color: Colors.grey,);
+    final Info_button = IconButton(onPressed: () {
+      getWeather();
+    }, icon: Icon(Icons.info), color: Colors.grey,);
 
-      final current_location = Text(
-        "현재 주소 \n 기온",
-        style: TextStyle( // 위도 및 경로를 활용하여 현위치 이름으로 변경.
-            height: 2.2,
-            fontSize: 13,
-            color: Colors.black),
-      );
+    final current_location = Text(
+      temp != null ? temp.toString() +"\u00B0" : " ",
+      style: TextStyle( // 위도 및 경로를 활용하여 현위치 이름으로 변경.
+          height: 2.2,
+          fontSize: 0,
+          color: Colors.black),
+    );
 
-      //final List<String> entries = <String>['A', 'B', 'C'];
-
-
-      return Scaffold(
+    //final List<String> entries = <String>['A', 'B', 'C'];
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: home_logo,
-          centerTitle: true,
-          leading: Leading_button,
-          actions: <Widget>[ Info_button,
-          ],
-        ),
-        body: Container(
-          child: ListView.separated(
-            padding: const EdgeInsets.all(15),
-            itemCount: articles!.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Container(
-                  height: 300,
-                  color: Colors.white,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        height: 180,
-                        width: 400,
-                        child: articles!.length == 0 ? Text('연결 x') : Image
-                            .network(
-                            "${articles![index].urlToImage}", fit: BoxFit.fill),
-                      ),
-                      Container(
-                        height: 60,
-                        width: 400,
-                        color: Colors.white,
-                        child: articles!.length == 0 ? Text('연결 x') : Text(
-                            "${articles![index].title}",
-                            style: TextStyle(fontSize: 16)),
-                      )
-                    ],
-                  )
-                //
-              );
-            },
-            separatorBuilder: (BuildContext context,
-                int index) => const Divider(),
+        title: home_logo,
+        centerTitle: true,
+        leading: Leading_button,
+        actions: [
+          Container(
+            child: Column(
+              children: [
+                Text("$temp",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text("$city",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+
+                ),
+              ],
+            ),
           ),
+                Info_button,
+        ],
+      ),
+      body: Container(
+        child: ListView.separated(
+          padding: const EdgeInsets.all(15),
+          itemCount: articles!.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+                height: 300,
+                color: Colors.white,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      height: 180,
+                      width: 400,
+                      child: articles!.length == 0 ? Text('연결 x') : Image
+                          .network(
+                          "${articles![index].urlToImage}", fit: BoxFit.fill),
+                    ),
+                    Container(
+                      height: 60,
+                      width: 400,
+                      color: Colors.white,
+                      child: articles!.length == 0 ? Text('연결 x') : Text(
+                          "${articles![index].title}",
+                          style: TextStyle(fontSize: 16)),
+                    )
+                  ],
+                )
+              //
+            );
+          },
+          separatorBuilder: (BuildContext context,
+              int index) => const Divider(),
         ),
-      );
-    }
+      ),
+    );
   }
+}
