@@ -1,4 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:news/screens/profile.dart';
+import 'package:news/screens/singup.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -8,6 +13,27 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final TextEditingController _emailcontroller = TextEditingController();
+  final TextEditingController _passwordcontroller = TextEditingController();
+  int _sucess = 1;
+  String _userEmail = "";
+
+  void _singIn() async{
+    final User? user = (await _auth.signInWithEmailAndPassword(email: _emailcontroller.text, password: _passwordcontroller.text)).user;
+
+    if(user != null){
+      setState(() {
+        _sucess = 2;
+        _userEmail = user.email!;
+        print("성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!");
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ProfileScreen()));
+      });
+    } else{
+      setState(() {
+        _sucess = 3;
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final home_logo = Text( //어플 로고이미지로 변경
@@ -39,7 +65,9 @@ class _LoginPageState extends State<LoginPage> {
                   width: 350,
                   child:
                   TextField(
+                    controller: _emailcontroller,
                       decoration: const InputDecoration(
+                        icon: Icon(Icons.person_outline),
                         hintText: 'ID',
                         contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                         border: const OutlineInputBorder(
@@ -53,7 +81,10 @@ class _LoginPageState extends State<LoginPage> {
                   width: 350,
                   child:
                   TextField(
+                      controller: _passwordcontroller,
+                      obscureText: true,
                       decoration: const InputDecoration(
+                        icon: Icon(Icons.lock_outline),
                         hintText: 'password',
                         contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                         border: const OutlineInputBorder(
@@ -61,17 +92,23 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       )
                   ),),
+                Container(
+                  alignment: Alignment.center,
+                  child: Text(_sucess == 1 ? " ": (_sucess == 2 ? '로그인 성공':'로그인 실패'),
+                )),
                 SizedBox(height: 30),
                 ButtonBar(
                   alignment : MainAxisAlignment.spaceAround,
                   buttonPadding: EdgeInsets.all(10),
                   children: [
                     TextButton(
-                        onPressed: (){},
+                        onPressed: (){                        },
                         child: Text('forget password?')),
                     ElevatedButton(
-                        onPressed: (){},
-                        child: Text('submit')),
+                        onPressed: ()async{
+                          _singIn();
+                        },
+                        child: Text('Login')),
                   ],
                 ),
             Text('Sing up', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
@@ -90,7 +127,9 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: (){},
                     child: Text('')),
                 ElevatedButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => SingupPage()),);
+                    },
                     child: Text('Go Sing up')),
               ],),
       ],),
