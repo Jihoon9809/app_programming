@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class SingupPage extends StatefulWidget {
   const SingupPage({Key? key}) : super(key: key);
@@ -8,6 +12,28 @@ class SingupPage extends StatefulWidget {
 }
 
 class _SingupPageState extends State<SingupPage> {
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwrodController = TextEditingController();
+  late bool _sucess;
+  late String _userEmail;
+
+  void _register() async{
+    final User? user = (
+    await _auth.createUserWithEmailAndPassword(email: _emailController.text, password: _passwrodController.text)
+    ).user;
+
+    if(user != null){
+      setState(() {
+        _sucess = true;
+        _userEmail = user.email!;
+      });
+    } else{
+      setState(() {
+        _sucess = false;
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final home_logo = Text( //어플 로고이미지로 변경
@@ -39,13 +65,15 @@ class _SingupPageState extends State<SingupPage> {
                   width: 350,
                   child:
                   TextField(
+                    controller: _emailController,
                       decoration: const InputDecoration(
+                        icon: Icon(Icons.person_outline),
                         hintText: 'ID',
                         contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                         border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(4.0)),
                         ),
-                      )
+                      ),
                   ),
                 ),
                 SizedBox(height: 30),
@@ -53,7 +81,10 @@ class _SingupPageState extends State<SingupPage> {
                   width: 350,
                   child:
                   TextField(
+                    controller: _passwrodController,
+                      obscureText: true,
                       decoration: const InputDecoration(
+                        icon: Icon(Icons.lock_outline),
                         hintText: 'password',
                         contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                         border: const OutlineInputBorder(
@@ -67,10 +98,14 @@ class _SingupPageState extends State<SingupPage> {
                   buttonPadding: EdgeInsets.all(10),
                   children: [
                     TextButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          Navigator.pop(context);
+                        },
                         child: Text('Do you have Id?')),
                     ElevatedButton(
-                        onPressed: (){},
+                        onPressed: () async{
+                          _register();
+                        },
                         child: Text('submit')),
                   ],
                 ),
