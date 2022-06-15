@@ -13,25 +13,25 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  final _formKey = GlobalKey<FormState>();
+
   final TextEditingController _emailcontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
   int _sucess = 1;
   String _userEmail = "";
 
-  void _singIn() async{
-    final User? user = (await _auth.signInWithEmailAndPassword(email: _emailcontroller.text, password: _passwordcontroller.text)).user;
-
-    if(user != null){
-      setState(() {
-        _sucess = 2;
-        _userEmail = user.email!;
-        print("성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!성공1!");
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ProfileScreen()));
-      });
-    } else{
-      setState(() {
-        _sucess = 3;
-      });
+  void signin(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        await _auth
+            .signInWithEmailAndPassword(email: email, password: password)
+            .then((uid) =>
+        {
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => ProfileScreen())),
+        });
+      } on FirebaseAuthException catch (error) {}
     }
   }
   @override
@@ -54,7 +54,8 @@ class _LoginPageState extends State<LoginPage> {
         actions: <Widget>[ Info_button,
         ],),
       body: Container(
-        child: Center(
+        child: Form(
+          key: _formKey,
             child: Column(
               children: <Widget>[
                 SizedBox(height: 30),
@@ -106,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Text('forget password?')),
                     ElevatedButton(
                         onPressed: ()async{
-                          _singIn();
+                          signin(_emailcontroller.text,_passwordcontroller.text);
                         },
                         child: Text('Login')),
                   ],
