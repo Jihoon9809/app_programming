@@ -17,7 +17,8 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home>
+with SingleTickerProviderStateMixin {
   List<ArticleModel>? articles = new List<ArticleModel>.empty(growable: true);
   double? temp;
 
@@ -37,9 +38,14 @@ class _HomeState extends State<Home> {
     // TODO: implement initState
     super.initState();
     getNews();
+    _tabController = TabController(length: _tabList.length, vsync: this);
     //getWeather();
   }
-
+  @override
+  void dispose(){
+    _tabController.dispose();
+    super.dispose();
+  }
   getNews() async{
     News newsClass = News();
     await newsClass.getNews();
@@ -48,11 +54,20 @@ class _HomeState extends State<Home> {
     });
   }
 
+  List<Tab> _tabList = [
+    Tab(child: Text("Top"),),
+    Tab(child: Text("Popular"),),
+    Tab(child: Text("Trending"),),
+    Tab(child: Text("Editor Choice"),),
+    Tab(child: Text("Top"),),
+  ];
+
+  late TabController _tabController;
 
   @override
   Widget build(BuildContext context) {
     final home_logo = Text( //어플 로고이미지로 변경
-      "News",
+      "News App",
       style: TextStyle(
           color: Colors.black),
     );
@@ -74,12 +89,72 @@ class _HomeState extends State<Home> {
           color: Colors.black),
     );
 
+    final main_article = Container(
+      child: ListView.separated(
+        padding: const EdgeInsets.all(15),
+        itemCount: articles!.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+              height: 450,
+              color: Colors.white,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: (){
+                      launch("${articles![index].url}");
+                    },
+                    child:
+                    Container(
+                      height: 200,
+                      width: 600,
+                      child: articles!.length == 0 ? Text('연결 x') : Image
+                          .network(
+                          "${articles![index].urlToImage}", fit: BoxFit.fill),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      launch("${articles![index].url}");
+                    },
+                    child:
+                    Container(
+                      child: Column(
+                        children: [
+                          articles!.length == 0 ? Text('연결 x') : Text(
+                              "${articles![index].title} \n",
+                              style: TextStyle(fontSize: 18
+                                  ,fontWeight: FontWeight.bold)),
+                          articles!.length == 0 ? Text('연결 x') : Text(
+                              "${articles![index].description}",
+                              style: TextStyle(fontSize: 14)),
+                        ],
+                      ),
+                    ),)
+                ],
+              )
+            //
+          );
+        },
+        separatorBuilder: (BuildContext context,
+            int index) => const Divider(),
+      ),
+    );
     //final List<String> entries = <String>['A', 'B', 'C'];
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: home_logo,
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(30.0),
+          child: TabBar(
+            indicatorColor: Colors.black,
+            isScrollable: true,
+            controller: _tabController,
+            tabs: _tabList,
+          ),
+        ),
         centerTitle: true,
         leading: Leading_button,
         actions: [
@@ -107,56 +182,30 @@ class _HomeState extends State<Home> {
           Info_button,
         ],
       ),
-      body: Container(
-        child: ListView.separated(
-          padding: const EdgeInsets.all(15),
-          itemCount: articles!.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Container(
-                height: 450,
-                color: Colors.white,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: (){
-                        launch("${articles![index].url}");
-                      },
-                      child:
-                      Container(
-                        height: 200,
-                        width: 600,
-                        child: articles!.length == 0 ? Text('연결 x') : Image
-                            .network(
-                            "${articles![index].urlToImage}", fit: BoxFit.fill),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: (){
-                        launch("${articles![index].url}");
-                      },
-                      child:
-                      Container(
-                        child: Column(
-                          children: [
-                            articles!.length == 0 ? Text('연결 x') : Text(
-                                "${articles![index].title} \n",
-                                style: TextStyle(fontSize: 18
-                                    ,fontWeight: FontWeight.bold)),
-                            articles!.length == 0 ? Text('연결 x') : Text(
-                                "${articles![index].description}",
-                                style: TextStyle(fontSize: 14)),
-                          ],
-                        ),
-                      ),)
-                  ],
-                )
-              //
-            );
-          },
-          separatorBuilder: (BuildContext context,
-              int index) => const Divider(),
-        ),
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          Padding(
+              padding: EdgeInsets.all(8.0),
+            child: main_article,
+          ) ,
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Container(),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Container(),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Container(),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Container(),
+          ),
+        ],
       ),
     );
   }
