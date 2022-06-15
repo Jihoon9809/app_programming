@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:news/screens/bottombar.dart';
 import 'package:news/screens/profile.dart';
 import 'package:news/screens/singup.dart';
 
@@ -29,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
             .then((uid) =>
         {
           Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => ProfileScreen())),
+              MaterialPageRoute(builder: (context) => bottom())),
         });
       } on FirebaseAuthException catch (error) {}
     }
@@ -45,81 +46,84 @@ class _LoginPageState extends State<LoginPage> {
 
     final Info_button = IconButton(onPressed: (){print("문의사항 이동");}, icon: Icon(Icons.info),color: Colors.grey,);
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: home_logo,
-        centerTitle: true,
-        leading: Leading_button,
-        actions: <Widget>[ Info_button,
-        ],),
-      body: Container(
-        child: Form(
-          key: _formKey,
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: 30),
-                Text('Sing in',
-                    style: TextStyle( fontSize: 30, fontWeight: FontWeight.bold)),
-                SizedBox(height: 30),
-                Container(
-                  width: 350,
-                  child:
-                  TextField(
-                    controller: _emailcontroller,
-                      decoration: const InputDecoration(
-                        icon: Icon(Icons.person_outline),
-                        hintText: 'ID',
-                        contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                        border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                        ),
-                      )
-                  ),
-                ),
-                SizedBox(height: 30),
-                Container(
-                  width: 350,
-                  child:
-                  TextField(
-                      controller: _passwordcontroller,
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                        icon: Icon(Icons.lock_outline),
-                        hintText: 'password',
-                        contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                        border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                        ),
-                      )
-                  ),),
-                Container(
-                  alignment: Alignment.center,
-                  child: Text(_sucess == 1 ? " ": (_sucess == 2 ? '로그인 성공':'로그인 실패'),
+    final logIn_screen = Container(
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: <Widget>[
+            SizedBox(height: 50),
+            Container(
+              child:  Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("News",
+                      style: TextStyle(fontSize:70,
+                          fontWeight: FontWeight.bold)),
+                  Text("Log into your account",
+                      style: TextStyle(fontSize:20,
+                          color: Colors.grey[500])),
+                ],
+              ),
+            ),
+            SizedBox(height: 50),
+            Container(
+              width: 350,
+              child:
+              TextField(
+                  controller: _emailcontroller,
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.person_outline),
+                    hintText: 'ID',
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    border: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                    ),
+                  )
+              ),
+            ),
+            SizedBox(height: 30),
+            Container(
+              width: 350,
+              child:
+              TextField(
+                  controller: _passwordcontroller,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.lock_outline),
+                    hintText: 'password',
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    border: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                    ),
+                  )
+              ),),
+            Container(
+                alignment: Alignment.center,
+                child: Text(_sucess == 1 ? " ": (_sucess == 2 ? '로그인 성공':'로그인 실패'),
                 )),
-                SizedBox(height: 30),
-                ButtonBar(
-                  alignment : MainAxisAlignment.spaceAround,
-                  buttonPadding: EdgeInsets.all(10),
-                  children: [
-                    TextButton(
-                        onPressed: (){                        },
-                        child: Text('forget password?')),
-                    ElevatedButton(
-                        onPressed: ()async{
-                          signin(_emailcontroller.text,_passwordcontroller.text);
-                        },
-                        child: Text('Login')),
-                  ],
-                ),
+            SizedBox(height: 30),
+            ButtonBar(
+              alignment : MainAxisAlignment.spaceAround,
+              buttonPadding: EdgeInsets.all(10),
+              children: [
+                TextButton(
+                    onPressed: (){                        },
+                    child: Text('forget password?',)),
+                ElevatedButton(
+                    onPressed: ()async{
+                      signin(_emailcontroller.text,_passwordcontroller.text);
+                    },
+                    child: Text('Login')),
+              ],
+            ),
             Text('Sing up', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
             ButtonBar(
                 alignment : MainAxisAlignment.start,
                 children: [
-                TextButton(
-                onPressed: (){},
-            child: Text("             Don't have an account?")),
-            ]),
+                  TextButton(
+                      onPressed: (){},
+                      child: Text("             Don't have an account?")),
+                ]),
             ButtonBar(
               alignment : MainAxisAlignment.spaceAround,
               buttonPadding: EdgeInsets.all(10),
@@ -133,7 +137,27 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     child: Text('Go Sing up')),
               ],),
-      ],),
-    ),),);
+          ],),
+      ),);
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: home_logo,
+        centerTitle: true,
+        leading: Leading_button,
+        actions: <Widget>[ Info_button,
+        ],),
+      body: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder:(context, snapshot) {
+          if(snapshot.hasData){
+            return ProfileScreen();
+          }else{
+            return logIn_screen;
+          }
+        },
+      ),
+    );
   }
 }
