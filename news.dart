@@ -3,12 +3,12 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ArticleModel {
-  late String author;
-  late String title;
-  late String description;
-  late String url;
-  late String urlToImage;
-  late String content;
+  String? author;
+  String? title;
+  String? description;
+  String? url;
+  String? urlToImage;
+  String? content;
 
   ArticleModel({required this.author, required this.title,
     required this.description,required this.url,
@@ -24,13 +24,12 @@ class News{
 
     var response = await http.get(Uri.parse(url));
 
-    var jsonData = jsonDecode(response.body);
+    dynamic jsonData = jsonDecode(response.body);
 
     print(jsonData.toString());
+
     if(jsonData['status'] == "ok"){
       jsonData["articles"].forEach((element){
-
-        if(element["urlToImage"] != null && element['description'] != null){
 
           ArticleModel articleModel = ArticleModel(
             author: element['author'],
@@ -42,9 +41,7 @@ class News{
           );
 
           news.add(articleModel);
-        }
-
-      });
+        });
     }
 
   }
