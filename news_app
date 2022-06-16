@@ -1,87 +1,48 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:news/screens/Home.dart';
-import 'package:news/screens/loding.dart';
-import 'package:news/screens/weather_screen.dart';
+import 'dart:convert';
 
-class NewsApp extends StatefulWidget {
-  NewsApp({Key? key}) : super(key: key);
+import 'package:http/http.dart' as http;
 
-  @override
-  _NewsAppState createState() => _NewsAppState();
+class ArticleModel {
+  String? author;
+  String? title;
+  String? description;
+  String? url;
+  String? urlToImage;
+  String? content;
+
+  ArticleModel({required this.author, required this.title,
+    required this.description,required this.url,
+    required this.urlToImage, required this.content});
 }
 
-class _NewsAppState extends State<NewsApp> {
+class News{
 
-  late int _currentPageIndex;
+  List<ArticleModel> news = [];
 
-  @override
-  void initState() {
-    super.initState();
-    _currentPageIndex = 0;
-  }
+  Future<void> getNews() async{
+    String url = "https://newsapi.org/v2/top-headlines?country=kr&apiKey=31199b72f238424ba57c46e7aae0a696";
 
-  @override
-  Widget build(BuildContext context) {
+    var response = await http.get(Uri.parse(url));
 
-    Widget _bodyWidget(){
-      switch (_currentPageIndex){
-        case 0:
-          return Home();
-          break;
-        case 1:
-          return Loading();
-          break;
-        case 2:
-          return WeatherScreen();
-          break;
-      }
-      return Container();
+    dynamic jsonData = jsonDecode(response.body);
+
+    print(jsonData.toString());
+
+    if(jsonData['status'] == "ok"){
+      jsonData["articles"].forEach((element){
+
+          ArticleModel articleModel = ArticleModel(
+            author: element['author'],
+            title: element['title'],
+            description: element['description'],
+            url: element['url'],
+            urlToImage: element['urlToImage'],
+            content: element['content'],
+          );
+
+          news.add(articleModel);
+        });
     }
 
-
-    BottomNavigationBarItem _bottomNavigationBarItem(
-        String iconName, String label) {
-      return BottomNavigationBarItem(
-        icon:Padding(
-          padding: const EdgeInsets.only(bottom: 5),
-          child: SvgPicture.asset("assets/svg/${iconName}_off.svg",width:22),
-        ),
-        activeIcon: Padding(
-          padding: const EdgeInsets.only(bottom: 5),
-          child: SvgPicture.asset("assets/svg/${iconName}_on.svg",width:22),
-        ),
-        label: label,
-      );
-    }
-
-    Widget _bottomNavigationBarwidget(){
-      return BottomNavigationBar(
-        type: BottomNavigationBarType.fixed, //설정 하지않으면 아이콘 누를경우 위로 올라감.
-        onTap: (int index){
-          // print(index); // 작동하는지 테스트.
-          setState(() {
-            _currentPageIndex = index;
-          });
-        },
-        currentIndex: _currentPageIndex,
-        selectedFontSize: 12,
-        selectedItemColor: Colors.black, // 선택한 아이콘 글자 표시 및 색상 설정
-        selectedLabelStyle: TextStyle(color: Colors.black),// 선택한 아이콘 글자 표시 및 색상 설정
-        items: [
-          _bottomNavigationBarItem("home", "홈"),
-          _bottomNavigationBarItem("location", "즐겨찾기"),
-          _bottomNavigationBarItem("notes", "캘린더"),
-        ],
-      );
-    }
-    return Scaffold(
-      backgroundColor: Colors.white,
-      //appBar: AppBar(
-        //backgroundColor: Colors.white,),
-      body: _bodyWidget(),
-      bottomNavigationBar: _bottomNavigationBarwidget(),
-    );
   }
 }
