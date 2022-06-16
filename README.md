@@ -36,6 +36,7 @@ https://play.google.com/store/search?q=%EB%89%B4%EC%8A%A4&c=apps
 
 ----------------------------------------------------------------------
 [0331] 화면 UI 구상.
+![디자인 설계](https://user-images.githubusercontent.com/95200335/174028994-5b43ad3a-ce2d-4784-ab47-1bb1cdea14f4.png)
 
 https://www.figma.com/file/qWamL64glecTqhwNVMML14/news-app-design?node-id=0%3A1
 
@@ -88,3 +89,9 @@ https://www.youtube.com/watch?v=7n2QprcdHMA
 
 https://api.flutter.dev/flutter/widgets/ListView-class.html
 
+결과물 이미지
+![logIn](https://user-images.githubusercontent.com/95200335/174029132-2715b08c-d705-4c57-9ce2-f32adc45a93a.png)
+![news_home](https://user-images.githubusercontent.com/95200335/174029159-300f51f3-90bd-45db-88cb-6186ea4d7405.png)
+![search](https://user-images.githubusercontent.com/95200335/174029170-a04f00e4-d2a5-484b-aff5-77a1d9c6b8ed.png)
+![Sing Up](https://user-images.githubusercontent.com/95200335/174029174-e6445661-1321-466b-9472-5e1adc6a5be0.png)
+![Profile](https://user-images.githubusercontent.com/95200335/174029195-5944c6d7-652d-4c76-b0ed-eaaaaf2e4612.png)
