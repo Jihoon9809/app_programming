@@ -58,7 +58,7 @@ class _SingupPageState extends State<SingupPage> {
   @override
   Widget build(BuildContext context) {
     final home_logo = Text( //어플 로고이미지로 변경
-      "News",
+      "Sing up",
       style: TextStyle(
           color: Colors.black),
     );
@@ -76,10 +76,10 @@ class _SingupPageState extends State<SingupPage> {
                 child:  Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("News",
-                        style: TextStyle(fontSize:70,
+                    Text("Create\n    Account",
+                        style: TextStyle(fontSize:35,
                             fontWeight: FontWeight.bold)),
-                    Text("Sign into your account",
+                    Text("\nWelcome, Didn't you have an email?",
                         style: TextStyle(fontSize:20,
                             color: Colors.grey[500])),
                   ],
@@ -96,7 +96,7 @@ class _SingupPageState extends State<SingupPage> {
                   },
                   decoration: const InputDecoration(
                     icon: Icon(Icons.person_outline),
-                    hintText: 'ID',
+                    hintText: 'Email',
                     contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     border: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(30)),
@@ -116,7 +116,7 @@ class _SingupPageState extends State<SingupPage> {
                     obscureText: true,
                     decoration: const InputDecoration(
                       icon: Icon(Icons.lock_outline),
-                      hintText: 'password',
+                      hintText: 'Password',
                       contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                       border: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(30)),
@@ -137,7 +137,7 @@ class _SingupPageState extends State<SingupPage> {
                       onPressed: () async{
                         signUp(_emailController.text,_passwrodController.text);
                       },
-                      child: Text('submit')),
+                      child: Text('Sign up')),
                 ],
               ),
             ],
@@ -145,24 +145,31 @@ class _SingupPageState extends State<SingupPage> {
       ),
     );
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: home_logo,
-        centerTitle: true,
-        leading: Leading_button,
-        actions: <Widget>[ Info_button,
-      ],),
-      body: StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder:(context, snapshot) {
-          if(snapshot.hasData){
-            return ProfileScreen();
-          }else{
-            return SignUp_screen;
-          }
-        },
-      )
+    return Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('assets/images/login.png'), fit: BoxFit.cover)),
+      child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            title: home_logo,
+            centerTitle: true,
+            leading: Leading_button,
+            actions: <Widget>[ Info_button,
+            ],),
+          body: SingleChildScrollView(
+              child : StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder:(context, snapshot) {
+              if(snapshot.hasData){
+                return ProfileScreen();
+              }else{
+                return SignUp_screen;
+              }
+            },
+          ),),
+      ),
     );
   }
 }
