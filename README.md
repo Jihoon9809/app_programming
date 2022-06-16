@@ -123,6 +123,9 @@ https://www.youtube.com/watch?v=7n2QprcdHMA
 //////// ListView.Separated ////////////
 
 https://api.flutter.dev/flutter/widgets/ListView-class.html
+파이어 베이스 연동////////////////////////////////////////
+
+![파이어베이스](https://user-images.githubusercontent.com/95200335/174080421-f682b285-cac8-4b68-ace8-5a6954cfdead.png)
 
 결과물 이미지////////////////////////////////////////////
 
@@ -131,3 +134,4 @@ https://api.flutter.dev/flutter/widgets/ListView-class.html
 ![search](https://user-images.githubusercontent.com/95200335/174029170-a04f00e4-d2a5-484b-aff5-77a1d9c6b8ed.png)
 ![Sing Up](https://user-images.githubusercontent.com/95200335/174029174-e6445661-1321-466b-9472-5e1adc6a5be0.png)
 ![Profile](https://user-images.githubusercontent.com/95200335/174029195-5944c6d7-652d-4c76-b0ed-eaaaaf2e4612.png)
+
