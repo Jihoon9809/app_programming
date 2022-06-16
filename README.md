@@ -51,7 +51,9 @@ https://www.figma.com/file/qWamL64glecTqhwNVMML14/news-app-design?node-id=0%3A1
 -로그인
 -회원가입
 -프로필 화면
-로그인 및 회원가입 성공시 프로필 화면으로 전환 가능.
+로그인 및 회원가입 성공 시 프로필 화면으로 이동
+로그인 및 회원가입 정보가 없을 시 프로필 화면이 아닌 로그인 화면으로 이동
+
 ----------------------------------------------------------------------
 [0426] news api 
 https://newsapi.org/s/south-korea-news-api
