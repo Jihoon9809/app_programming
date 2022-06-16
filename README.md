@@ -1,6 +1,6 @@
 # 앱 프로그래밍 
 
-앱 아이디어 구상
+✨✨앱 아이디어 구상✨✨
 
 - 뉴스 앱
 
@@ -39,7 +39,19 @@ https://play.google.com/store/search?q=%EB%89%B4%EC%8A%A4&c=apps
 ![디자인 설계](https://user-images.githubusercontent.com/95200335/174028994-5b43ad3a-ce2d-4784-ab47-1bb1cdea14f4.png)
 
 https://www.figma.com/file/qWamL64glecTqhwNVMML14/news-app-design?node-id=0%3A1
+메인 페이지
+- 검색
+- 위치 및 날씨
+- 뉴스 기사 사진, 제목, 글 안내
+검색을 통해 원하는 글 검색.
+위치 및 날씨 아이콘 선택 시 현재 위치 및 날씨 안내.
+메인 화면을 통해 뉴스 기사 사진, 제목, 글 내용을 안내한다.
 
+마이페이지
+-로그인
+-회원가입
+-프로필 화면
+로그인 및 회원가입 성공시 프로필 화면으로 전환 가능.
 ----------------------------------------------------------------------
 [0426] news api 
 https://newsapi.org/s/south-korea-news-api
@@ -89,7 +101,8 @@ https://www.youtube.com/watch?v=7n2QprcdHMA
 
 https://api.flutter.dev/flutter/widgets/ListView-class.html
 
-결과물 이미지
+결과물 이미지////////////////////////////////////////////
+
 ![logIn](https://user-images.githubusercontent.com/95200335/174029132-2715b08c-d705-4c57-9ce2-f32adc45a93a.png)
 ![news_home](https://user-images.githubusercontent.com/95200335/174029159-300f51f3-90bd-45db-88cb-6186ea4d7405.png)
 ![search](https://user-images.githubusercontent.com/95200335/174029170-a04f00e4-d2a5-484b-aff5-77a1d9c6b8ed.png)
