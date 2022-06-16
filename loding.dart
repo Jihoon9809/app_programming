@@ -6,6 +6,8 @@ import 'dart:convert';
 
 import 'package:news/screens/weather_screen.dart';
 
+import 'Home.dart';
+
 const apikey = '576d46ee1760bd0dbff8bdb769d6e2dc';
 
 class Loading extends StatefulWidget{
@@ -34,28 +36,28 @@ class _LoadingState extends State<Loading>{
     //데이터 가져오기.
     Network network = Network('https://api.openweathermap.org/data/2.5/weather?lat=${latitude3}&lon=${longitude3}&appid=$apikey&units=metric');
 
-    var weatherData = await network.getJsonData();
+    /*var weatherData = await network.getJsonData();
     print(weatherData);
     Navigator.push(context, MaterialPageRoute(builder: (context){
-      return WeatherScreen(parseWeatherData: weatherData,);
-    }));
+      return Home(parseWeatherData: weatherData,);
+    }));*/
   }
 
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      body: Center(
-        child: RaisedButton(
+        body: Center(
+          child: RaisedButton(
             onPressed: null,
             child: Text(
-            'Get my location',
-            style: TextStyle(
-              color: Colors.white
+              'Get my location',
+              style: TextStyle(
+                  color: Colors.white
+              ),
             ),
-        ),
-          color: Colors.blue,
-        ),
-      )
+            color: Colors.blue,
+          ),
+        )
     );
   }
 }
