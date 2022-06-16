@@ -60,6 +60,7 @@ with SingleTickerProviderStateMixin {
     Tab(child: Text("Trending"),),
     Tab(child: Text("Editor Choice"),),
     Tab(child: Text("Top"),),
+    Tab(child: Text("Yours"),),
   ];
 
   late TabController _tabController;
@@ -81,13 +82,6 @@ with SingleTickerProviderStateMixin {
       getWeather();
     }, icon: Icon(Icons.info), color: Colors.grey,);
 
-    final current_location = Text(
-      temp != null ? temp.toString() +"\u00B0" : " ",
-      style: TextStyle( // 위도 및 경로를 활용하여 현위치 이름으로 변경.
-          height: 2.2,
-          fontSize: 0,
-          color: Colors.black),
-    );
 
     final main_article = Container(
       child: ListView.separated(
@@ -141,71 +135,82 @@ with SingleTickerProviderStateMixin {
       ),
     );
     //final List<String> entries = <String>['A', 'B', 'C'];
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/images/login.png'), fit: BoxFit.cover)
+      ),
+      child: Scaffold(
         backgroundColor: Colors.white,
-        title: home_logo,
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(30.0),
-          child: TabBar(
-            indicatorColor: Colors.black,
-            isScrollable: true,
-            controller: _tabController,
-            tabs: _tabList,
-          ),
-        ),
-        centerTitle: true,
-        leading: Leading_button,
-        actions: [
-          Container(
-            child: Column(
-              children: [
-                Text("$temp",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text("$city",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-
-                ),
-              ],
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: home_logo,
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(30.0),
+            child: TabBar(
+              indicatorColor: Colors.black,
+              isScrollable: true,
+              labelColor: Colors.black,
+              controller: _tabController,
+              tabs: _tabList,
             ),
           ),
-          Info_button,
-        ],
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          Padding(
+          centerTitle: true,
+          leading: Leading_button,
+          actions: [
+            Container(
+              child: Column(
+                children: [
+                  Text(temp == null?'':'$temp',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(temp == null?'':'Busan',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+
+                  ),
+                ],
+              ),
+            ),
+            Info_button,
+          ],
+        ),
+        body: TabBarView(
+          controller: _tabController,
+          children: [
+            Padding(
               padding: EdgeInsets.all(8.0),
-            child: main_article,
-          ) ,
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Container(),
-          ),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Container(),
-          ),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Container(),
-          ),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Container(),
-          ),
-        ],
+              child: main_article,
+            ) ,
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: main_article,
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: main_article,
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: main_article,
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: main_article,
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: main_article,
+            ),
+          ],
+        ),
       ),
     );
   }
