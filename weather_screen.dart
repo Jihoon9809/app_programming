@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class WeatherScreen extends StatefulWidget{
   WeatherScreen({this.parseWeatherData});
@@ -10,18 +12,22 @@ class WeatherScreen extends StatefulWidget{
 
 class _WeatherScreenState extends State<WeatherScreen>{
 
+  late int _currentPageIndex;
+
   String? cityName;
   int? temp2;
   @override
   void initState(){
     super.initState();
-    updateData(widget.parseWeatherData); //state class의 속성 widget 사용 모든데이터에 접근 가능
+    updateData(widget.parseWeatherData);
+    _currentPageIndex = 0;//state class의 속성 widget 사용 모든데이터에 접근 가능
   }
   void updateData(dynamic weatherData){
-         double temp = weatherData['main']['temp'];
-         temp2 = temp.round(); //반올림 하기 위해
-         cityName = weatherData['name'];
+    double temp = weatherData['main']['temp'];
+    temp2 = temp.round(); //반올림 하기 위해
+    cityName = weatherData['name'];
   }
+
   Widget build(BuildContext context){
     return Scaffold(
       body: SafeArea(
@@ -32,20 +38,18 @@ class _WeatherScreenState extends State<WeatherScreen>{
               Text(
                 '$cityName',
                 style: TextStyle(
-                  fontSize: 30.0
+                    fontSize: 30.0
                 ),
               ),
               SizedBox(
                 height: 20.0,
               ),
               Text('$temp2',
-              style: TextStyle(
-                fontSize: 30.0
-              ),)
-            ],
-          ),
-        ),
-      ),
-    );
+                style: TextStyle(
+                    fontSize: 30.0
+               ),)],
+    ),
+    ),
+    ),);
   }
 }
