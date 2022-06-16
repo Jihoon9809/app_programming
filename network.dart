@@ -3,7 +3,6 @@ import 'dart:convert';
 
 class Network {
   final String url;
-
   Network(this.url); //인스턴스가 생성될때 생성자를 통해 url을 받음
 
   //json의 데이터 타입이 다양하므로 dynamic설정
