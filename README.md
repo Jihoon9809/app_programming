@@ -20,6 +20,8 @@
    + 마이 페이지를 구현하여 자신의 정보 안내.
 ---------------------------------------------------------------------   
 - 참고 앱
+
+
 https://play.google.com/store/search?q=%EB%89%B4%EC%8A%A4&c=apps
 ---------------------------------------------------------------------
 
@@ -29,16 +31,22 @@ https://play.google.com/store/search?q=%EB%89%B4%EC%8A%A4&c=apps
 ---------------------------------------------------------------------
 [0317] 사이트맵 구상
 
+
 ![구상도](https://user-images.githubusercontent.com/95200335/174016096-9e23b672-5827-4242-a638-44ac26ccca1a.PNG)
+
 
 
 -프로젝트 구현 간 지속적인 수정 
 
 ----------------------------------------------------------------------
 [0331] 화면 UI 구상.
+
+
 ![디자인 설계](https://user-images.githubusercontent.com/95200335/174028994-5b43ad3a-ce2d-4784-ab47-1bb1cdea14f4.png)
 
 https://www.figma.com/file/qWamL64glecTqhwNVMML14/news-app-design?node-id=0%3A1
+
+
 메인 페이지
 - 검색
 - 위치 및 날씨
@@ -56,25 +64,35 @@ https://www.figma.com/file/qWamL64glecTqhwNVMML14/news-app-design?node-id=0%3A1
 
 ----------------------------------------------------------------------
 [0426] news api 
+
+
 https://newsapi.org/s/south-korea-news-api
 위의 경로에 위치하는 api를 사용할 계획
 
 https://newsapi.org/sources
 
 ---------------------------------------------------------------------
+
 [0427] 현재 날씨 정보
+
+
 https://openweathermap.org/
+
 위의 사이트의 api를 통해 메인 화면의 날싸 위젯을 구성한다.
 
 https://pub.dev/packages/geolocator/example
+
 -날씨 정보를 알려주기 위해 현위치를 알아야 하므로  geolocator을 활용한다.
 -readme를 통해 api사용법을 숙지한다.
 
 https://pub.dev/packages/http/install
+
 -날씨 api를 사용하기 위해 http사용
 
 //진행상황//
+
 openweathermap api를 활용하여 플러터의 콘솔에 출력을 하였다.
+
 ![날씨 json 파일 불러오기](https://user-images.githubusercontent.com/95200335/165798940-16643d49-73e7-44be-8d16-1f835edad515.png)
 
 ![날씨 출력 오류](https://user-images.githubusercontent.com/95200335/165800029-f0a807a0-a9d1-40a2-af9d-f2692147550a.png)
@@ -83,8 +101,11 @@ openweathermap api를 활용하여 플러터의 콘솔에 출력을 하였다.
 이후 어플의 화면에 지역이름 및 온도를 출력하는 중 오류가 발생하였다.
 
 //차후 진행계획//
+
 -  오류 수정을 하여 앱 화면에 지역이름 및 온도를 출력한다.
+
 - 각 페이지 UI 적용
+
 
 //오류 수정완료//
 
