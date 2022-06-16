@@ -29,7 +29,8 @@ https://play.google.com/store/search?q=%EB%89%B4%EC%8A%A4&c=apps
 ---------------------------------------------------------------------
 [0317] 사이트맵 구상
 
-![사이트맵](https://user-images.githubusercontent.com/95200335/158802708-db8acb67-81b5-40c9-a883-cfd8e08deb6b.png)
+![구상도](https://user-images.githubusercontent.com/95200335/174016096-9e23b672-5827-4242-a638-44ac26ccca1a.PNG)
+
 
 -프로젝트 구현 간 지속적인 수정 
 
